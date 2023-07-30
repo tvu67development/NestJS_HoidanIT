@@ -66,6 +66,16 @@ const postUpdateUser = async (req, res) => {
     res.redirect("/");
 }
 
+const postDeleteUser = async (req, res) => {
+    const userID = req.params.id;
+    let user = await getUserByID(userID);
+    res.render("delete.ejs", { userEdit: user });
+}
+
+const postHandleRemoveUser = async (req, res) => {
+    res.send("Deleted")
+}
+
 const getCreatePage = (req, res) => {
     res.render("create.ejs")
 }
@@ -82,6 +92,8 @@ module.exports = {
     getHoiDanIT,
     postCreateUser,
     postUpdateUser,
+    postDeleteUser,
+    postHandleRemoveUser,
     getCreatePage,
     getUpdatePage
 }
