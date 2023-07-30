@@ -16,23 +16,22 @@
 
     <div class="form-add-new">
         <form action="/create-user" method="POST">
-
             <fieldset>
                 <legend>Update a user</legend>
                 <div class="input-group">
                     <label>Email: </label>
-                    <input type="text" name="email" id="" />
+                    <input type="text" name="email" value="<%= userEdit.email %>" />
                     <!-- Lay the name ma ko lay the id vi Radio button co nhieu option thi chi chon dc 1, lay theo id thi ko dc trung, lay theo name thi co the trung,
                     server dua vao the name de lay gia tri -->
                     <!-- tach ra lam 2 routes /create vs /create-user -->
                 </div>
                 <div class="input-group">
                     <label>Name: </label>
-                    <input type="text" name="myname" />
+                    <input type="text" name="myname" value="<%= userEdit.name %>" />
                 </div>
                 <div class="input-group">
                     <label>City: </label>
-                    <input type="text" name="city" />
+                    <input type="text" name="city" value="<%= userEdit.city %>" />
                 </div>
                 <div>
                     <button> Save </button>
