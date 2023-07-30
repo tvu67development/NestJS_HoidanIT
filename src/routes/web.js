@@ -1,5 +1,5 @@
 const express = require('express');
-const { getHomepage, getABC, getHoiDanIT, postCreateUser, getCreatePage, getUpdatePage } = require('../controllers/homeController');
+const { getHomepage, getABC, getHoiDanIT, postCreateUser, getCreatePage, getUpdatePage, postUpdateUser } = require('../controllers/homeController');
 const router = express.Router();
 
 // quy chuan su dung:         router.Method('/router', handler);
@@ -15,6 +15,8 @@ router.get("/create", getCreatePage);
 router.get("/update/:id", getUpdatePage);  // dau : de truyen dong tham so 
 
 router.post("/create-user", postCreateUser);
+
+router.post("/update-user", postUpdateUser);
 
 module.exports = router;  // export default
 
