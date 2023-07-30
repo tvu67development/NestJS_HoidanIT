@@ -57,10 +57,15 @@ const getCreatePage = (req, res) => {
     res.render("create.ejs")
 }
 
+const getUpdatePage = (req, res) => {
+    res.render("edit.ejs")
+}
+
 module.exports = {
     getHomepage,
     getABC,
     getHoiDanIT,
     postCreateUser,
-    getCreatePage
+    getCreatePage,
+    getUpdatePage
 }
