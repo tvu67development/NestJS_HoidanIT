@@ -1,5 +1,5 @@
 const connection = require('../config/database');
-const { getAllUsers, getUserByID, updateUserByID } = require('../services/CRUDService');
+const { getAllUsers, getUserByID, updateUserByID, deleteUserByID } = require('../services/CRUDService');
 
 // su dung asyn - await cho cac ham nao call DB
 const getHomepage = async (req, res) => {
@@ -18,11 +18,11 @@ const getHoiDanIT = (req, res) => {
 const postCreateUser = async (req, res) => {
     // nay la noi chuoi trong JS, ko can dung dau "+", chi can dung dau ","
     console.log("req.body: ", req.body);
-    // let email = req.body.email;
-    // let name = req.body.myname;
-    // let city = req.body.city;
+    let email = req.body.email;
+    let name = req.body.myname;
+    let city = req.body.city;
 
-    let { email, name, city } = req.body;
+    // let { email, myname, city } = req.body;
     // connection.query(
     //     // Dung dau '' thi khi xuong dong se bao loi cau, dung dau `` thi ko bi vay
     //     `INSERT INTO Users (email, name, city) 
@@ -37,7 +37,7 @@ const postCreateUser = async (req, res) => {
         `INSERT INTO Users (email, name, city) VALUES (?, ?, ?)`, [email, name, city]
     );
 
-    console.log("results: ", results);
+    // console.log("results: ", results);
 
     res.send('Created user succeed !');
 
@@ -73,7 +73,9 @@ const postDeleteUser = async (req, res) => {
 }
 
 const postHandleRemoveUser = async (req, res) => {
-    res.send("Deleted")
+    const userID = req.body.userID;
+    await deleteUserByID(userID);
+    res.redirect("/");
 }
 
 const getCreatePage = (req, res) => {
