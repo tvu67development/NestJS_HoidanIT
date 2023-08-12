@@ -19,9 +19,19 @@ configViewEngine(app);
 // khai bao route
 app.use('/', webRoutes);
 
-// test connection 
-connection();
 
-app.listen(port, hostname, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+
+// Anonymous Function
+(async () => {
+  // test connection 
+  try {
+    await connection();
+    app.listen(port, hostname, () => {
+      console.log(`Nestjs app listening on port ${port}`);
+    });
+  } catch (error) {
+    console.log(">>> Error connection to DB: ", error);
+  }
+})()
+
+
