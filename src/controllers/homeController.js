@@ -1,9 +1,10 @@
 const connection = require('../config/database');
 const { getAllUsers, getUserByID, updateUserByID, deleteUserByID } = require('../services/CRUDService');
+const User = require("../models/user");
 
 // su dung asyn - await cho cac ham nao call DB
 const getHomepage = async (req, res) => {
-    let results = await getAllUsers();
+    let results = [];
     return res.render('home.ejs', { listUsers: results });
 }
 
@@ -22,6 +23,18 @@ const postCreateUser = async (req, res) => {
     let name = req.body.myname;
     let city = req.body.city;
 
+    // await User.create({
+    //     email: email,
+    //     name: name,
+    //     city: city
+    // })
+
+    await User.create({
+        email,
+        name,
+        city
+    })
+
     // let { email, myname, city } = req.body;
     // connection.query(
     //     // Dung dau '' thi khi xuong dong se bao loi cau, dung dau `` thi ko bi vay
@@ -33,9 +46,9 @@ const postCreateUser = async (req, res) => {
     //     }
     // );
 
-    let [results, fields] = await connection.query(
-        `INSERT INTO Users (email, name, city) VALUES (?, ?, ?)`, [email, name, city]
-    );
+    // let [results, fields] = await connection.query(
+    //     `INSERT INTO Users (email, name, city) VALUES (?, ?, ?)`, [email, name, city]
+    // );
 
     // console.log("results: ", results);
 
