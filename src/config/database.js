@@ -1,5 +1,5 @@
 require('dotenv').config;
-const mysql = require('mysql2/promise');  // giup code ko can viet duoi dang callback 
+const mongoose = require('mongoose');  // giup code ko can viet duoi dang callback 
 
 // const connection = mysql.createConnection({
 //     host: process.env.DB_HOST,
@@ -9,15 +9,35 @@ const mysql = require('mysql2/promise');  // giup code ko can viet duoi dang cal
 //     database: process.env.DB_NAME
 // });
 
-const connection = mysql.createPool({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT, // default: 3306
-    user: process.env.DB_USER, // default: empty
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
+// const connection = mysql.createPool({
+//     host: process.env.DB_HOST,
+//     port: process.env.DB_PORT, // default: 3306
+//     user: process.env.DB_USER, // default: empty
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_NAME,
+//     waitForConnections: true,
+//     connectionLimit: 10,
+//     queueLimit: 0
+// });
+
+const dbState = [
+    { value: 0, label: "disconnected" },
+    { value: 1, label: "connected" },
+    { value: 2, label: "connecting" },
+    { value: 3, label: "disconnecting" }
+];
+
+const connection = async () => {
+    // mongoose.connect('mongodb://127.0.0.1:27017/test').
+    //     catch(error => handleError(error));
+    // Or:
+    try {
+        await mongoose.connect('mongodb://root:123456@localhost:27018/');
+        const state = Number(mongoose.connection.readyState);
+        console.log(dbState.find(f => f.value === state).label, "to db"); // connected to db
+    } catch (error) {
+        console.log(">>> Error connection DB: ", error);
+    }
+}
 
 module.exports = connection;

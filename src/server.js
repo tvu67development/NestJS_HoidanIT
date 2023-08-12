@@ -3,6 +3,7 @@ const express = require("express"); // common JS
 //import express from "express"; // ES modules
 const configViewEngine = require('./config/viewEngine');
 const webRoutes = require('./routes/web');
+const connection = require('./config/database');
 
 const app = express(); // app express
 const port = process.env.PORT || 8888; // port
@@ -17,6 +18,9 @@ configViewEngine(app);
 
 // khai bao route
 app.use('/', webRoutes);
+
+// test connection 
+connection();
 
 app.listen(port, hostname, () => {
   console.log(`Example app listening on port ${port}`);
