@@ -4,7 +4,7 @@ const User = require("../models/user");
 
 // su dung asyn - await cho cac ham nao call DB
 const getHomepage = async (req, res) => {
-    let results = [];
+    let results = await User.find({});
     return res.render('home.ejs', { listUsers: results });
 }
 
@@ -72,10 +72,9 @@ const postUpdateUser = async (req, res) => {
     let email = req.body.email;
     let name = req.body.myname;
     let city = req.body.city;
-    await updateUserByID(email, name, city, userID);
-    // console.log("check", { userID, name, email, city });
-    // console.log("results", results)
-    // res.send('Updated user succeed !');
+    await User.updateOne({ _id: userID }, { name: name, email: email, city: city });
+    // await User.updateOne(name, email, city);
+
     res.redirect("/");
 }
 
@@ -97,7 +96,8 @@ const getCreatePage = (req, res) => {
 
 const getUpdatePage = async (req, res) => {
     const userID = req.params.id;
-    let user = await getUserByID(userID);
+    // let user = await getUserByID(userID);
+    let user = await User.findById(userID).exec();
     res.render("edit.ejs", { userEdit: user }); // x <- y
 }
 
