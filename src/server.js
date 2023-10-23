@@ -3,6 +3,8 @@ const express = require("express"); // common JS
 //import express from "express"; // ES modules
 const configViewEngine = require('./config/viewEngine');
 const webRoutes = require('./routes/web');
+const apiRoutes = require('./routes/api');
+
 const connection = require('./config/database');
 
 const app = express(); // app express
@@ -18,6 +20,7 @@ configViewEngine(app);
 
 // khai bao route
 app.use('/', webRoutes);
+app.use('/v1/api/', apiRoutes);
 
 
 
