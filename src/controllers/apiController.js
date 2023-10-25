@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const { uploadSingleFile } = require("../services/fileService");
 
 // su dung asyn - await cho cac ham nao call DB
 const getUsersAPI = async (req, res) => {
@@ -91,9 +92,24 @@ const deleteUserAPI = async (req, res) => {
     })
 }
 
+const postUploadSingleFileAPI = async (req, res) => {
+
+    if (!req.files || Object.keys(req.files).length === 0) {
+        res.status(400).send('No files were uploaded.');
+        return;
+    }
+
+    // hứng kết quả trả về của hàm, hàm nào có return trả về đều có thể hứng được
+    let result = await uploadSingleFile(req.files.image);
+    console.log(">>> check result: ", result)
+    return res.send("OKE")
+}
+
+
 module.exports = {
     getUsersAPI,
     postCreateUserAPI,
     putUpdateUserAPI,
-    deleteUserAPI
+    deleteUserAPI,
+    postUploadSingleFileAPI
 }
