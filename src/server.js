@@ -4,7 +4,7 @@ const express = require("express"); // common JS
 const configViewEngine = require('./config/viewEngine');
 const webRoutes = require('./routes/web');
 const apiRoutes = require('./routes/api');
-const fileUpload = require('express-fileupload');
+const fileUpload = require('express-fileupload'); // req.files có giá trị
 
 const connection = require('./config/database');
 
