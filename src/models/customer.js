@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const customerSchema = new mongoose.Schema({
     name: {
         type: String,
-        require: true
+        required: true   // nhớ viết cho đúng "required" (thay vì "require")
     },
     address: String,
     phone: String,
