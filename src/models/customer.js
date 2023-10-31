@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoose_delete = require('mongoose-delete');
 
 // shape data, Schema quy dinh kieu du lieu cua table
 const customerSchema = new mongoose.Schema({
@@ -14,6 +15,9 @@ const customerSchema = new mongoose.Schema({
 },
     { timestamps: true }
 )
+
+// soft delete
+customerSchema.plugin(mongoose_delete, { overrideMethods: 'all' });
 
 const Customer = mongoose.model("Customer", customerSchema);
 module.exports = Customer;
