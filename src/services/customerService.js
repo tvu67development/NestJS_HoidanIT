@@ -57,5 +57,15 @@ module.exports = {
             console.log(error)
             return null
         }
+    },
+
+    deleteArrayCustomerService: async (arrCustomer) => {
+        try {
+            let result = await Customer.delete({ _id: { $in: arrCustomer } })
+            return result;
+        } catch (error) {
+            console.log(error)
+            return null
+        }
     }
 }

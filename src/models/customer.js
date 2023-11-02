@@ -13,7 +13,15 @@ const customerSchema = new mongoose.Schema({
     image: String,
     description: String
 },
-    { timestamps: true }
+    {
+        timestamps: true, // createdAt, updatedAt
+        // statics: {
+        // thêm phương thức khi gọi tới Schema "customerSchema"
+        //     findByHoiDanIT(name) {
+        //         return this.find({ name: new RegExp(name, 'i') });
+        //     }
+        // }
+    }
 )
 
 // soft delete
