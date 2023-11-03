@@ -29,9 +29,16 @@ module.exports = {
         }
     },
 
-    getAllCustomerService: async () => {
+    getAllCustomerService: async (limit, page) => {
         try {
-            let result = await Customer.find({});
+            let result = null
+            if (limit && page) {
+                let offset = (page - 1) * limit
+                // exec() đảm bảo đống code chạy đúng với một promise, đảm bảo async await
+                result = await Customer.find({}).skip(offset).limit(limit).sort({ name: 'asc' }).exec()
+            } else {
+                result = await Customer.find({});
+            }
             return result;
         } catch (error) {
             console.log(error);
