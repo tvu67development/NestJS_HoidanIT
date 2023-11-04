@@ -1,4 +1,5 @@
 const Customer = require("../models/customer");
+const aqp = require('api-query-params');
 
 module.exports = {
     createCustomerService: async (customerData) => {
@@ -29,13 +30,22 @@ module.exports = {
         }
     },
 
-    getAllCustomerService: async (limit, page) => {
+    getAllCustomerService: async (limit, page, name, queryString) => {
         try {
             let result = null
             if (limit && page) {
                 let offset = (page - 1) * limit
+
+                const { filter, skip } = aqp(queryString);
+                delete filter.page
+                console.log(">>> filter ", filter)
+                // if (name) {
+                //     result = await Customer.find({
+                //         "name": { $regex: '.*' + name + '.*' }
+                //     }).skip(offset).limit(limit).exec()
+                // } else 
                 // exec() đảm bảo đống code chạy đúng với một promise, đảm bảo async await
-                result = await Customer.find({}).skip(offset).limit(limit).sort({ name: 'asc' }).exec()
+                result = await Customer.find(filter).skip(offset).limit(limit).exec()
             } else {
                 result = await Customer.find({});
             }
