@@ -33,8 +33,8 @@ app.use('/v1/api/', apiRoutes);
 (async () => {
   try {
 
-    // test connection by using mongoose
-    // await connection();
+    // test connection by using mongoose - do lúc đầu mình comment dòng này lại, tức là đóng connect với mongoose nên các schema phía sau sử dụng thông qua mongoose ko được. Có thể sử dụng song song 2 kết nối mongoose vs mongodb
+    await connection();
 
     // connection by using mongodb driver
     // Connection URL
@@ -47,6 +47,7 @@ app.use('/v1/api/', apiRoutes);
     await client.connect();
     console.log('Connected successfully to server');
     const db = client.db(dbName);
+    // không phải do mặc định kết nối với collection "document" như ông Eric nói nha
     const collection = db.collection('documents');
 
     app.listen(port, hostname, () => {
