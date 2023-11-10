@@ -46,9 +46,9 @@ app.use('/v1/api/', apiRoutes);
 
     await client.connect();
     console.log('Connected successfully to server');
-    const db = client.db(dbName);
+    // const db = client.db(dbName);
     // không phải do mặc định kết nối với collection "document" như ông Eric nói nha
-    const collection = db.collection('documents');
+    // const collection = db.collection('documents');
 
     app.listen(port, hostname, () => {
       console.log(`Nestjs app listening on port ${port}`);
