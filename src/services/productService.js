@@ -1,5 +1,5 @@
 const Project = require("../models/project");
-// const aqp = require('api-query-params');
+const aqp = require('api-query-params');
 
 module.exports = {
     createProjectService: async (projectData) => {
@@ -23,5 +23,21 @@ module.exports = {
             return newResult
         }
         return null
+    },
+
+    getProject: async (queryString) => {
+        console.log("queryString ", queryString)
+        const page = queryString.page
+        const { filter, limit, population } = aqp(queryString); // filter, limit trùng với tên của tham số có trong thư viện aqp nên có thể viết như vậy
+        // trừ tất cả các tham số được định nghĩa sẵn trong thư viện aqp, các tham số thêm vào URL đều có trong filter: page, ... 
+        // page là để dùng tính offset, nên cần loại ra khỏi biến filter
+        let offset = (page - 1) * limit
+        delete filter.page
+        result = await Project.find(filter)
+            .populate(population)
+            .skip(offset)
+            .limit(limit)
+            .exec()
+        return result
     }
 }
