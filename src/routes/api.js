@@ -2,7 +2,9 @@ const express = require('express');
 const routerAPI = express.Router();
 const { getUsersAPI, postCreateUserAPI, putUpdateUserAPI, deleteUserAPI, postUploadSingleFileAPI, postUploadMultipleFilesAPI } = require("../controllers/apiController")
 const { postCreateCustomer, postCreateArrayCustomer, getAllCustomers, putUpdateCustomer, deleteACustomer, deleteArrayCustomer } = require("../controllers/customerController")
-const { postCreateProject, getAllProject } = require("../controllers/projectController")
+const { postCreateProject, getAllProject, deleteProject, putUpdateProject } = require("../controllers/projectController")
+const { postCreateTask, getAllTask, deleteTask, putUpdateTask } = require("../controllers/taskController")
+
 
 routerAPI.get("/users", getUsersAPI);
 routerAPI.post("/users", postCreateUserAPI);
@@ -21,7 +23,13 @@ routerAPI.delete("/customers-many", deleteArrayCustomer)
 
 routerAPI.post("/projects", postCreateProject)
 routerAPI.get("/projects", getAllProject)
+routerAPI.delete("/projects", deleteProject)
+routerAPI.put("/projects", putUpdateProject)
 
+routerAPI.post("/tasks", postCreateTask)
+routerAPI.get("/tasks", getAllTask)
+routerAPI.delete("/tasks", deleteTask)
+routerAPI.put("/tasks", putUpdateTask)
 
 routerAPI.get("/info", (req, res) => {
     console.log(">> check query: ", req.query)

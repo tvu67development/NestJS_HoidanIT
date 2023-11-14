@@ -1,4 +1,4 @@
-const { createProjectService, getProject } = require("../services/productService");
+const { createProjectService, getProject, deleteProjectService, putUpdateProjectService } = require("../services/productService");
 
 module.exports = {
     postCreateProject: async (req, res) => {
@@ -25,5 +25,31 @@ module.exports = {
             EC: 0,
             data: project
         })
-    }
+    },
+
+    putUpdateProject: async (req, res) => {
+        let { id, name, startDate, endDate, description } = req.body
+        let project = await putUpdateProjectService(id, name, startDate, endDate, description)
+        if (project) {
+            return res.status(200).json({
+                EC: 0,
+                data: project
+            })
+        } else {
+            return res.status(200).json({
+                EC: -1,
+                data: null
+            })
+        }
+    },
+
+    deleteProject: async (req, res) => {
+        let id = req.body.id
+        // console.log(id)
+        let project = await deleteProjectService(id)
+        return res.status(200).json({
+            EC: 0,
+            data: project
+        })
+    },
 }

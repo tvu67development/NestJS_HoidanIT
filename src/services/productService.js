@@ -22,6 +22,16 @@ module.exports = {
             // projectData.find()
             return newResult
         }
+
+        if (projectData.type === "REMOVE-USERS") {
+            let myProject = await Project.findById(projectData.projectID).exec()
+            projectData.usersArr.forEach(element => {
+                myProject.usersInfor.pull(element)
+            });
+
+            let newResult = await myProject.save()
+            return newResult
+        }
         return null
     },
 
@@ -39,5 +49,25 @@ module.exports = {
             .limit(limit)
             .exec()
         return result
+    },
+
+    deleteProjectService: async (id) => {
+        try {
+            let result = await Project.deleteById({ _id: id })
+            return result
+        } catch (error) {
+            console.log(error)
+            return null
+        }
+    },
+
+    putUpdateProjectService: async (id, name, startDate, endDate, description) => {
+        try {
+            let result = await Project.updateOne({ _id: id }, { name, startDate, endDate, description })
+            return result
+        } catch (error) {
+            console.log(error)
+            return null
+        }
     }
 }
