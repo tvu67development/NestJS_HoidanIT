@@ -38,7 +38,8 @@ app.use('/v1/api/', apiRoutes);
 
     // connection by using mongodb driver
     // Connection URL
-    const url = process.env.DB_HOST_WITH_DRIVER;
+    // const url = process.env.DB_HOST_WITH_DRIVER;
+    const url = process.env.DB_HOST;
     const client = new MongoClient(url);
 
     // Database Name
