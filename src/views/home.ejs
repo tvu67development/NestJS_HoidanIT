@@ -42,43 +42,41 @@
     </div>
 
     <div class="table-container">
-        <%= JSON.stringify(listUsers) %>
+        <!-- <%= JSON.stringify(listUsers) %> -->
 
-            <div class="title">List User</div>
-            <table>
+        <div class="title">List User</div>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Name</th>
+                <th>City</th>
+                <th>Actions</th>
+            </tr>
+            <% listUsers.forEach(function(user) { %>
                 <tr>
-                    <th>ID</th>
-                    <th>Email</th>
-                    <th>Name</th>
-                    <th>City</th>
-                    <th>Actions</th>
-                </tr>
-                <tr>
-                    <td>Peter</td>
-                    <td>Griffin</td>
-                    <td>$100</td>
-                    <td>$100</td>
                     <td>
-                        <button>Edit</button>
-                        <button>Delete</button>
+                        <%= user.id %>
+                    </td>
+                    <td>
+                        <%= user.email %>
+                    </td>
+                    <td>
+                        <%= user.name %>
+                    </td>
+                    <td>
+                        <%= user.city %>
+                    </td>
+                    <td>
+                        <a href="/update/<%= user.id %>">Edit</a>
+                        <!-- the <a> tuong ung voi method GET -->
+                        <form action="/delete-user/<%= user.id %>" method="POST">
+                            <button>Delete</button>
+                        </form>
                     </td>
                 </tr>
-                <tr>
-                    <td>Lois</td>
-                    <td>Griffin</td>
-                    <td>$150</td>
-                </tr>
-                <tr>
-                    <td>Joe</td>
-                    <td>Swanson</td>
-                    <td>$300</td>
-                </tr>
-                <tr>
-                    <td>Cleveland</td>
-                    <td>Brown</td>
-                    <td>$250</td>
-                </tr>
-            </table>
+                <% }); %>
+        </table>
     </div>
 
 </body>
