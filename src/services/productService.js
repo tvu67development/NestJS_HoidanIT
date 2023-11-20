@@ -32,6 +32,21 @@ module.exports = {
             let newResult = await myProject.save()
             return newResult
         }
+        if (projectData.type === "ADD-TASKS") {
+            console.log(">>> check: ", projectData)
+            // find Project by ID
+            let myProject = await Project.findById(projectData.projectID)
+            console.log(">> projectData.taskArr ", projectData.taskArr)
+            projectData.taskArr.forEach(element => {
+                myProject.tasks.push(element)
+            });
+            // myProject.usersInfor.push(...projectData.usersArr)  // push tất cả phần tử có trong array vào 
+            let newResult = await myProject.save()
+
+            console.log(">>> check Project: ", myProject)
+            // projectData.find()
+            return newResult
+        }
         return null
     },
 

@@ -21,7 +21,7 @@ module.exports = {
     putUpdateTask: async (req, res) => {
         // let { id, name, startDate, endDate, description, status } = req.body
 
-        let task = await putUpdateTaskService(req.query)
+        let task = await putUpdateTaskService(req.body)
         if (task) {
             return res.status(200).json({
                 EC: 0,

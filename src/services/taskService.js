@@ -37,7 +37,7 @@ module.exports = {
 
     putUpdateTaskService: async (data) => {
         try {
-            let result = await Task.updateOne({ _id: data.id }, { ...data })
+            let result = await Task.updateOne({ _id: data.id }, { ...data })  // destructuring object
             return result
         } catch (error) {
             console.log(error)
